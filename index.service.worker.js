@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1793236774|1909518';
+const CACHE_VERSION = '1793247304|3553069';
 /** @type {string} */
 const CACHE_PREFIX = 'techverse-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
@@ -165,6 +165,6 @@ self.addEventListener('message', (event) => {
 });
 
 
-// Techverse build aa70aec+uncommitted 2026-10-29T01:19:35Z: a new build takes over at once instead of waiting.
+// Techverse build 6e096b8 2026-10-29T04:15:06Z: a new build takes over at once instead of waiting.
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (event) => event.waitUntil(self.clients.claim()));
