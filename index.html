@@ -131,6 +131,23 @@ html, body { position: fixed; inset: 0; width: 100%; height: 100%; overflow: hid
 	document.addEventListener('DOMContentLoaded', fit);
 	setInterval(fit, 500);
 })();
+// Techverse: always pick up the newest build. Ask for updates when the page
+// opens or comes back to the front, and reload once when a new build takes over.
+(function () {
+	if (!('serviceWorker' in navigator)) { return; }
+	var hadOldBuild = !!navigator.serviceWorker.controller;
+	var reloaded = false;
+	navigator.serviceWorker.addEventListener('controllerchange', function () {
+		if (hadOldBuild && !reloaded) { reloaded = true; window.location.reload(); }
+	});
+	function checkForUpdate() {
+		navigator.serviceWorker.getRegistration().then(function (reg) {
+			if (reg) { reg.update().catch(function () {}); }
+		}).catch(function () {});
+	}
+	window.addEventListener('load', checkForUpdate);
+	document.addEventListener('visibilitychange', function () { if (!document.hidden) { checkForUpdate(); } });
+})();
 </script>
 	</head>
 	<body>
@@ -150,7 +167,7 @@ html, body { position: fixed; inset: 0; width: 100%; height: 100%; overflow: hid
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":0,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":24320,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"serviceWorker":"index.service.worker.js"};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":0,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":23060,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"serviceWorker":"index.service.worker.js"};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
